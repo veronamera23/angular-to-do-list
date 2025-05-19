@@ -1,0 +1,16 @@
+<header>
+  <h1>To-Do List</h1>
+  <div class="header-controls">
+    <button class="btn" (click)="toggleAddTask()">
+      {{ showAddTask ? 'Close' : 'Add Task' }}
+    </button>
+    <div class="sort-container">
+      <label for="sort">Sort by:</label>
+      <select id="sort" (change)="onSortChange($event)">
+        <option value="dateAdded">Date Added</option>
+        <option value="dueDate">Due Date</option>
+        <option value="priority">Priority</option>
+      </select>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,49 @@
+<div class="form-container">
+  <h2>{{ formTitle }}</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-control">
+      <label for="text">Task</label>
+      <input 
+        type="text" 
+        name="text" 
+        id="text" 
+        placeholder="Add Task"
+        [(ngModel)]="text"
+      />
+    </div>
+    
+    <div class="form-control">
+      <label for="dueDate">Due Date</label>
+      <input 
+        type="date" 
+        name="dueDate" 
+        id="dueDate"
+        [(ngModel)]="dueDate"
+      />
+    </div>
+    
+    <div class="form-control">
+      <label for="dueTime">Due Time</label>
+      <input 
+        type="time" 
+        name="dueTime" 
+        id="dueTime"
+        [(ngModel)]="dueTime"
+      />
+    </div>
+    
+    <div class="form-control">
+      <label for="priority">Priority</label>
+      <select name="priority" id="priority" [(ngModel)]="priority">
+        <option value="High">High</option>
+        <option value="Mid">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+    </div>
+    
+    <div class="form-actions">
+      <button type="button" class="btn btn-cancel" (click)="closeForm.emit()">Cancel</button>
+      <button type="submit" class="btn btn-submit">{{ isEditing ? 'Update' : 'Save' }} Task</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,33 @@
+<div class="container">
+  <app-header></app-header>
+
+  <div class="main-content">
+    <app-add-task 
+      *ngIf="showAddTask" 
+      [task]="taskToEdit" 
+      (closeForm)="closeForm()"
+    ></app-add-task>
+
+    <div class="tasks-list">
+      <div *ngIf="tasks.length === 0" class="no-tasks">
+        <p>No tasks to show</p>
+        <button class="btn" (click)="toggleAddTask()">Add New Task</button>
+      </div>
+      
+      <app-task-item 
+        *ngFor="let task of tasks" 
+        [task]="task"
+        (onDelete)="deleteTask($event)"
+        (onEdit)="editTask($event)"
+      ></app-task-item>
+    </div>
+  </div>
+
+  <!-- Task Deleted Toast -->
+  <div *ngIf="showTaskDeletedToast" class="toast-container">
+    <div class="toast">
+      <div class="toast-content">Task deleted</div>
+      <button class="toast-action" (click)="undoDelete()">UNDO</button>
+    </div>
+  </div>
+</div>
