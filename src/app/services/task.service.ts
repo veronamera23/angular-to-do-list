@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class TaskService {
     return this.http.get<Task[]>(this.apiUrl);
   }
 
-  addTask(task: Task): void {
-    this.http.post<Task>(this.apiUrl, task).subscribe();
+  addTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.apiUrl, task);
   }
 
   deleteTask(id: number): boolean {
@@ -28,11 +28,13 @@ export class TaskService {
     return true;
   }
 
-  undoDelete(): void {
+  undoDelete(): Observable<Task | null> {
     if (this.lastDeletedTask) {
-      this.http.post<Task>(this.apiUrl, this.lastDeletedTask).subscribe();
+      const taskToRestore = this.lastDeletedTask;
       this.lastDeletedTask = null;
+      return this.http.post<Task>(this.apiUrl, taskToRestore);
     }
+    return of(null);
   }
 
   toggleReminder(task: Task): void {
@@ -43,5 +45,9 @@ export class TaskService {
   toggleComplete(task: Task): void {
     const updatedTask = { ...task, completed: !task.completed };
     this.http.put<Task>(`${this.apiUrl}/${task.id}`, updatedTask).subscribe();
+  }
+
+  updateTask(task: Task): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}/${task.id}`, task);
   }
 }
