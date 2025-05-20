@@ -27,16 +27,19 @@
   color: #555;
 }
 
-.priority-high {
-  border-left: 5px solid #e74c3c;
+.priority-High {
+  background-color: #d4f8e8;
+  border-left: 5px solid #2ecc40; /* green */
 }
 
-.priority-medium {
-  border-left: 5px solid #f39c12;
+.priority-Mid {
+  background-color: #f0f0f0;
+  border-left: 5px solid #888888; /* gray */
 }
 
-.priority-low {
-  border-left: 5px solid #3498db;
+.priority-Low {
+  background-color: #ffeaea;
+  border-left: 5px solid #ff4136; /* red */
 }
 
 .task.reminder {
@@ -50,7 +53,7 @@
 
 .completed-text {
   text-decoration: line-through;
-  color: #777;
+  color: gray;
 }
 
 .reminder-badge {

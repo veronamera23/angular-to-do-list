@@ -10,16 +10,33 @@
     </app-add-task>
   </div>
   
+  <div class="sort-controls">
+    <label>Sort by:</label>
+    <select [(ngModel)]="sortBy" (change)="setSortBy(sortBy)">
+      <option value="dateAdded">Date Added</option>
+      <option value="dueDate">Due Date</option>
+      <option value="priority">Priority</option>
+    </select>
+  </div>
+  
   <div *ngIf="tasks.length > 0; else noTasks">
     <div class="task-list">
-      <app-task-item
-        *ngFor="let task of tasks"
-        [task]="task"
-        (onDelete)="deleteTask($event)"
-        (onEdit)="editTask($event)"
-        (onToggleReminder)="toggleReminder($event)"
-        (onToggleComplete)="toggleComplete($event)">
-      </app-task-item>
+      <div *ngFor="let task of tasks">
+        <app-task-item
+          [task]="task"
+          (onDelete)="confirmDelete(task.id!)"
+          (onEdit)="editTask($event)"
+          (onToggleReminder)="toggleReminder($event)"
+          (onToggleComplete)="toggleComplete($event)">
+        </app-task-item>
+        <div *ngIf="confirmDeleteId === task.id" class="confirm-dialog-inline">
+          <p>Are you sure you want to delete this task?</p>
+          <div class="dialog-actions">
+            <button class="btn btn-danger" (click)="deleteTask(task.id!)">Yes, Delete</button>
+            <button class="btn btn-secondary" (click)="cancelDelete()">Cancel</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   

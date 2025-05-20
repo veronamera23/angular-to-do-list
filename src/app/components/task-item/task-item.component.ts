@@ -35,4 +35,9 @@ export class TaskItemComponent {
   getPriorityClass(): string {
     return `priority-${this.task.priority}`;
   }
+
+  toggleComplete(task: Task) {
+    task.completed = !task.completed;
+    this.onToggleComplete.emit(task);
+  }
 }
