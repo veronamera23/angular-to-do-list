@@ -1,10 +1,10 @@
-// src/app/models/task.ts
 export interface Task {
-  id: number;
+  id?: number;
   text: string;
-  dueDate: string;
-  dueTime: string;
-  reminder: boolean;
-  priority: string;
-  completed: boolean;
+  dueDate?: string;
+  dueTime?: string;
+  reminder?: boolean;
+  priority: "High" | "Mid" | "Low";
+  completed?: boolean;
+  dateAdded?: string; // <-- Add this line
 }

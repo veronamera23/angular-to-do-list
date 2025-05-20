@@ -32,3 +32,77 @@
   cursor: pointer;
   margin-left: 10px;
 }
+
+/* Centered modal backdrop */
+.confirm-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Dialog box */
+.confirm-dialog {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  min-width: 300px;
+  max-width: 90vw;
+}
+
+.confirm-dialog p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Inline confirmation dialog above the task */
+.confirm-dialog-inline {
+  background: #fffbe6;
+  border: 1px solid #ffe58f;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1rem 1.5rem;
+  margin: 10px 0;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.confirm-dialog-inline p {
+  margin: 0 0 1rem 0;
+  font-size: 1.05rem;
+  color: #856404;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background: #ff4136;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #e0e0e0;
+  color: #333;
+}

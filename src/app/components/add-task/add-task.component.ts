@@ -29,11 +29,11 @@ export class AddTaskComponent implements OnInit {
     if (this.task) {
       this.id = this.task.id;
       this.text = this.task.text;
-      this.dueDate = this.task.dueDate;
-      this.dueTime = this.task.dueTime;
-      this.reminder = this.task.reminder;
+      this.dueDate = this.task.dueDate ?? '';
+      this.dueTime = this.task.dueTime ?? '';
+      this.reminder = this.task.reminder ?? false;
       this.priority = (['High', 'Mid', 'Low'].includes(this.task.priority) ? this.task.priority : 'Mid') as "High" | "Mid" | "Low";
-      this.completed = this.task.completed;
+      this.completed = this.task.completed ?? false;
       this.isEditMode = true;
     } else {
       this.isEditMode = false;
@@ -47,7 +47,8 @@ export class AddTaskComponent implements OnInit {
       return;
     }
 
-    // Only include id if editing
+    const now = new Date().toISOString();
+
     const newTask: Task = this.isEditMode
       ? {
           id: this.id!,
@@ -56,7 +57,8 @@ export class AddTaskComponent implements OnInit {
           dueTime: this.dueTime,
           reminder: this.reminder,
           priority: this.priority,
-          completed: this.completed
+          completed: this.completed,
+          dateAdded: this.task?.dateAdded || now // keep original dateAdded when editing
         }
       : {
           text: this.text,
@@ -64,7 +66,8 @@ export class AddTaskComponent implements OnInit {
           dueTime: this.dueTime,
           reminder: this.reminder,
           priority: this.priority,
-          completed: this.completed
+          completed: this.completed,
+          dateAdded: now // <-- Add this line for new tasks
         } as Task;
 
     this.onAddTask.emit(newTask);

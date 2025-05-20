@@ -5,12 +5,14 @@ import { CommonModule, NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { HeaderComponent } from '../header/header.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     NgIf,
     NgFor,
     TaskItemComponent,
@@ -27,12 +29,15 @@ export class TasksComponent implements OnInit {
   taskToEdit: Task | undefined;
   showTaskDeletedToast: boolean = false;
   deletedTaskId: number | null = null;
+  confirmDeleteId: number | null = null;
+  sortBy: 'dateAdded' | 'dueDate' | 'priority' = 'dateAdded';
 
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.taskService.getTasks().subscribe(tasks => {
       this.tasks = tasks;
+      this.sortTasks();
     });
   }
 
@@ -43,12 +48,13 @@ export class TasksComponent implements OnInit {
 
   deleteTask(id: number): void {
     this.taskService.deleteTask(id);
-    this.tasks = this.tasks.filter(task => task.id !== id); // Instantly remove from UI
+    this.tasks = this.tasks.filter(task => task.id !== id);
+    this.confirmDeleteId = null;
     this.deletedTaskId = id;
     this.showTaskDeletedToast = true;
     setTimeout(() => {
       this.showTaskDeletedToast = false;
-    }, 5000); // Hide toast after 5 seconds
+    }, 5000);
   }
 
   editTask(task: Task): void {
@@ -64,7 +70,8 @@ export class TasksComponent implements OnInit {
   undoDelete(): void {
     this.taskService.undoDelete().subscribe((restoredTask) => {
       if (restoredTask) {
-        this.tasks = [restoredTask, ...this.tasks]; // Add restored task to the top of the list
+        this.tasks = [restoredTask, ...this.tasks];
+        this.sortTasks();
       }
       this.showTaskDeletedToast = false;
       this.deletedTaskId = null;
@@ -88,6 +95,7 @@ export class TasksComponent implements OnInit {
   refreshTasks(): void {
     this.taskService.getTasks().subscribe(tasks => {
       this.tasks = tasks;
+      this.sortTasks();
     });
   }
   
@@ -97,5 +105,37 @@ export class TasksComponent implements OnInit {
   
   toggleComplete(task: Task): void {
     this.taskService.toggleComplete(task);
+  }
+
+  setSortBy(sort: 'dateAdded' | 'dueDate' | 'priority') {
+    this.sortBy = sort;
+    this.sortTasks();
+  }
+
+  sortTasks() {
+    if (this.sortBy === 'dateAdded') {
+      this.tasks = [...this.tasks].sort((a, b) =>
+        (b.dateAdded || '').localeCompare(a.dateAdded || '')
+      );
+    } else if (this.sortBy === 'dueDate') {
+      this.tasks = [...this.tasks].sort((a, b) =>
+        (a.dueDate || '').localeCompare(b.dueDate || '')
+      );
+    } else if (this.sortBy === 'priority') {
+      const priorityOrder: Record<"High" | "Mid" | "Low", number> = { High: 1, Mid: 2, Low: 3 };
+      this.tasks = [...this.tasks].sort(
+        (a, b) =>
+          (priorityOrder[a.priority as "High" | "Mid" | "Low"] ?? 4) -
+          (priorityOrder[b.priority as "High" | "Mid" | "Low"] ?? 4)
+      );
+    }
+  }
+
+  confirmDelete(id: number): void {
+    this.confirmDeleteId = id;
+  }
+
+  cancelDelete(): void {
+    this.confirmDeleteId = null;
   }
 }

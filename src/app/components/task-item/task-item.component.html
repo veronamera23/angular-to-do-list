@@ -8,6 +8,7 @@
     <div class="task-details">
       <p *ngIf="task.dueDate">Due: {{ task.dueDate }} {{ task.dueTime }}</p>
       <p *ngIf="task.reminder" class="reminder-badge">Reminder</p>
+      <p class="priority-label">Priority: {{ task.priority }}</p>
     </div>
   </div>
   <div class="task-actions">
