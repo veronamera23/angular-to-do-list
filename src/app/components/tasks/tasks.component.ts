@@ -42,14 +42,13 @@ export class TasksComponent implements OnInit {
   }
 
   deleteTask(id: number): void {
-    const deletedTask = this.taskService.deleteTask(id);
-    if (deletedTask) {
-      this.deletedTaskId = id;
-      this.showTaskDeletedToast = true;
-      setTimeout(() => {
-        this.showTaskDeletedToast = false;
-      }, 5000); // Hide toast after 5 seconds
-    }
+    this.taskService.deleteTask(id);
+    this.tasks = this.tasks.filter(task => task.id !== id); // Instantly remove from UI
+    this.deletedTaskId = id;
+    this.showTaskDeletedToast = true;
+    setTimeout(() => {
+      this.showTaskDeletedToast = false;
+    }, 5000); // Hide toast after 5 seconds
   }
 
   editTask(task: Task): void {
@@ -63,14 +62,33 @@ export class TasksComponent implements OnInit {
   }
 
   undoDelete(): void {
-    this.taskService.undoDelete();
-    this.showTaskDeletedToast = false;
-    this.deletedTaskId = null;
+    this.taskService.undoDelete().subscribe((restoredTask) => {
+      if (restoredTask) {
+        this.tasks = [restoredTask, ...this.tasks]; // Add restored task to the top of the list
+      }
+      this.showTaskDeletedToast = false;
+      this.deletedTaskId = null;
+    });
   }
   
   addTask(task: Task): void {
-    this.taskService.addTask(task);
-    this.closeForm();
+    if (task.id) {
+      this.taskService.updateTask(task).subscribe(() => {
+        this.refreshTasks();
+        this.closeForm();
+      });
+    } else {
+      this.taskService.addTask(task).subscribe(() => {
+        this.refreshTasks();
+        this.closeForm();
+      });
+    }
+  }
+
+  refreshTasks(): void {
+    this.taskService.getTasks().subscribe(tasks => {
+      this.tasks = tasks;
+    });
   }
   
   toggleReminder(task: Task): void {

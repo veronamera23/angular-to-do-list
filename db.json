@@ -1,43 +1,7 @@
 {
   "tasks": [
     {
-      "id": "1",
-      "text": "Buy groceries",
-      "dueDate": "2024-06-01",
-      "dueTime": "17:00",
-      "priority": "High",
-      "reminder": true,
-      "completed": false
-    },
-    {
-      "id": "2",
-      "text": "Finish Angular project",
-      "dueDate": "2024-06-05",
-      "dueTime": "23:59",
-      "priority": "Mid",
-      "reminder": false,
-      "completed": false
-    },
-    {
-      "id": 69249,
-      "text": "curse angular",
-      "dueDate": "2025-05-20",
-      "dueTime": "06:15",
-      "reminder": false,
-      "priority": "Low",
-      "completed": false
-    },
-    {
-      "id": 69249,
-      "text": "Fuck u angular",
-      "dueDate": "2025-05-20",
-      "dueTime": "06:15",
-      "reminder": false,
-      "priority": "High",
-      "completed": false
-    },
-    {
-      "id": 32402,
+      "id": "32402",
       "text": "shettttt love it",
       "dueDate": "2025-05-20",
       "dueTime": "06:21",
@@ -46,11 +10,29 @@
       "completed": false
     },
     {
-      "id": "1",
-      "text": "Buy grocery",
-      "dueDate": "2024-06-01",
-      "dueTime": "17:00",
-      "reminder": true,
+      "id": "dadd",
+      "text": "are you adding now",
+      "dueDate": "2025-05-20",
+      "dueTime": "11:37",
+      "reminder": false,
+      "priority": "High",
+      "completed": false
+    },
+    {
+      "id": "5728",
+      "text": "HALLELUJAH",
+      "dueDate": "2025-06-06",
+      "dueTime": "11:37",
+      "reminder": false,
+      "priority": "Mid",
+      "completed": false
+    },
+    {
+      "id": "c962",
+      "text": "are you STILL adding",
+      "dueDate": "2025-05-20",
+      "dueTime": "11:43",
+      "reminder": false,
       "priority": "High",
       "completed": false
     }
