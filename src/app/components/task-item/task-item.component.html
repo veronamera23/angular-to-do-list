@@ -1,38 +1,17 @@
-<div class="task" [ngClass]="{'task-completed': task.completed, 'task-overdue': isOverdue()}">
-  <div class="task-info">
+<!-- src/app/components/task-item/task-item.component.html -->
+<div class="task" [ngClass]="{'reminder': task.reminder, 'completed': task.completed}" [class]="getPriorityClass()">
+  <div class="task-content" (dblclick)="onToggle()">
     <div class="task-header">
-      <label class="checkbox-container">
-        <input 
-          type="checkbox" 
-          [checked]="task.completed" 
-          (change)="onCheckboxChange()"
-        />
-        <span class="checkmark"></span>
-      </label>
-      <h3 [ngClass]="{'completed': task.completed}">{{ task.text }}</h3>
-      <div [class]="'priority-tag ' + getPriorityClass()">{{ task.priority }}</div>
+      <input type="checkbox" [checked]="task.completed" (change)="onComplete()" />
+      <h3 [ngClass]="{'completed-text': task.completed}">{{ task.text }}</h3>
     </div>
-    
     <div class="task-details">
-      <div class="due-date" [ngClass]="{'overdue': isOverdue()}">
-        <span class="date-label">Due:</span> {{ task.dueDate | date:'mediumDate' }} at {{ task.dueTime }}
-      </div>
+      <p *ngIf="task.dueDate">Due: {{ task.dueDate }} {{ task.dueTime }}</p>
+      <p *ngIf="task.reminder" class="reminder-badge">Reminder</p>
     </div>
   </div>
-  
   <div class="task-actions">
-    <button class="btn btn-edit" (click)="onEditTask()">Edit</button>
-    <button class="btn btn-delete" (click)="onDeleteTask()">Delete</button>
-  </div>
-  
-  <!-- Confirmation Dialog -->
-  <div *ngIf="showConfirmDialog" class="confirmation-dialog">
-    <div class="dialog-content">
-      <p>Are you sure you want to delete this task?</p>
-      <div class="dialog-actions">
-        <button class="btn btn-cancel" (click)="cancelDelete()">Cancel</button>
-        <button class="btn btn-confirm" (click)="confirmDelete()">Delete</button>
-      </div>
-    </div>
+    <button (click)="onEditClick()" class="edit-btn">Edit</button>
+    <button (click)="onDeleteClick()" class="delete-btn">X</button>
   </div>
 </div>

@@ -1,11 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../models/task';
 import { TaskService } from '../../services/task.service';
+import { CommonModule, NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
+import { TaskItemComponent } from '../task-item/task-item.component';
+import { AddTaskComponent } from '../add-task/add-task.component';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-tasks',
+  standalone: true,
+  imports: [
+    CommonModule,
+    NgIf,
+    NgFor,
+    TaskItemComponent,
+    AddTaskComponent,
+    HeaderComponent
+  ],
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.css'],
+  styleUrls: ['./tasks.component.css']
 })
 
 export class TasksComponent implements OnInit {
@@ -53,5 +66,18 @@ export class TasksComponent implements OnInit {
     this.taskService.undoDelete();
     this.showTaskDeletedToast = false;
     this.deletedTaskId = null;
+  }
+  
+  addTask(task: Task): void {
+    this.taskService.addTask(task);
+    this.closeForm();
+  }
+  
+  toggleReminder(task: Task): void {
+    this.taskService.toggleReminder(task);
+  }
+  
+  toggleComplete(task: Task): void {
+    this.taskService.toggleComplete(task);
   }
 }

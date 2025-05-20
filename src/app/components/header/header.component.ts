@@ -1,24 +1,18 @@
-import { Component } from '@angular/core';
-import { TaskService } from '../../services/task.service';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  templateUrl: '../header.component.html',
-  styleUrls: ['../header.component.css']
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent {
-  showAddTask: boolean = false;
-  sortBy: 'dateAdded' | 'dueDate' | 'priority' = 'dateAdded';
+  @Output() toggleAddTask = new EventEmitter();
 
-  constructor(private taskService: TaskService) {}
-
-  toggleAddTask() {
-    this.showAddTask = !this.showAddTask;
-  }
-
-  onSortChange(event: Event) {
-    const select = event.target as HTMLSelectElement;
-    this.sortBy = select.value as 'dateAdded' | 'dueDate' | 'priority';
-    this.taskService.sortTasks(this.sortBy);
+  onToggle() {
+    this.toggleAddTask.emit();
   }
 }

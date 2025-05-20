@@ -1,33 +1,34 @@
+<!-- src/app/components/tasks/tasks.component.html -->
 <div class="container">
-  <app-header></app-header>
-
-  <div class="main-content">
-    <app-add-task 
-      *ngIf="showAddTask" 
-      [task]="taskToEdit" 
-      (closeForm)="closeForm()"
-    ></app-add-task>
-
-    <div class="tasks-list">
-      <div *ngIf="tasks.length === 0" class="no-tasks">
-        <p>No tasks to show</p>
-        <button class="btn" (click)="toggleAddTask()">Add New Task</button>
-      </div>
-      
-      <app-task-item 
-        *ngFor="let task of tasks" 
+  <app-header (toggleAddTask)="toggleAddTask()"></app-header>
+  
+  <div *ngIf="showAddTask">
+    <app-add-task
+      [task]="taskToEdit"
+      (onAddTask)="addTask($event)"
+      (onCloseForm)="closeForm()">
+    </app-add-task>
+  </div>
+  
+  <div *ngIf="tasks.length > 0; else noTasks">
+    <div class="task-list">
+      <app-task-item
+        *ngFor="let task of tasks"
         [task]="task"
         (onDelete)="deleteTask($event)"
         (onEdit)="editTask($event)"
-      ></app-task-item>
+        (onToggleReminder)="toggleReminder($event)"
+        (onToggleComplete)="toggleComplete($event)">
+      </app-task-item>
     </div>
   </div>
-
-  <!-- Task Deleted Toast -->
-  <div *ngIf="showTaskDeletedToast" class="toast-container">
-    <div class="toast">
-      <div class="toast-content">Task deleted</div>
-      <button class="toast-action" (click)="undoDelete()">UNDO</button>
-    </div>
+  
+  <ng-template #noTasks>
+    <p>No tasks to show</p>
+  </ng-template>
+  
+  <div *ngIf="showTaskDeletedToast" class="toast">
+    <p>Task deleted</p>
+    <button (click)="undoDelete()">Undo</button>
   </div>
 </div>
