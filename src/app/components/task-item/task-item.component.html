@@ -1,18 +1,32 @@
 <!-- src/app/components/task-item/task-item.component.html -->
-<div class="task" [ngClass]="{'reminder': task.reminder, 'completed': task.completed}" [class]="getPriorityClass()">
+<div class="task-item"
+     [ngClass]="{
+       'priority-high': task.priority === 'High',
+       'priority-mid': task.priority === 'Mid',
+       'priority-low': task.priority === 'Low'
+     }">
   <div class="task-content" (dblclick)="onToggle()">
     <div class="task-header">
-      <input type="checkbox" [checked]="task.completed" (change)="onComplete()" />
-      <h3 [ngClass]="{'completed-text': task.completed}">{{ task.text }}</h3>
+      <div class="task-title-group">
+        <input type="checkbox" [checked]="task.completed" (change)="onComplete()" />
+        <h3 [ngClass]="{'completed-text': task.completed}">{{ task.text }}</h3>
+      </div>
+      <div class="task-actions">
+        <button (click)="onEditClick()" class="btn edit-btn">Edit</button>
+        <button (click)="onDeleteClick()" class="btn delete-btn">X</button>
+      </div>
     </div>
     <div class="task-details">
-      <p *ngIf="task.dueDate">Due: {{ task.dueDate }} {{ task.dueTime }}</p>
-      <p *ngIf="task.reminder" class="reminder-badge">Reminder</p>
-      <p class="priority-label">Priority: {{ task.priority }}</p>
+      <span *ngIf="task.dueDate">
+        Due: {{ task.dueDate | date:'MMM d, y' }}
+        <ng-container *ngIf="task.dueTime">
+          at {{ (task.dueDate + 'T' + task.dueTime) | date:'h:mm a' }}
+        </ng-container>
+        | Priority: {{ task.priority }}
+      </span>
+      <span *ngIf="!task.dueDate">
+        Priority: {{ task.priority }}
+      </span>
     </div>
-  </div>
-  <div class="task-actions">
-    <button (click)="onEditClick()" class="edit-btn">Edit</button>
-    <button (click)="onDeleteClick()" class="delete-btn">X</button>
   </div>
 </div>

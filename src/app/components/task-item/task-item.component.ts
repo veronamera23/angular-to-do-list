@@ -29,6 +29,7 @@ export class TaskItemComponent {
   }
 
   onComplete() {
+    this.task.completed = !this.task.completed; // Toggle locally for instant UI update
     this.onToggleComplete.emit(this.task);
   }
 

@@ -1,15 +1,6 @@
 {
   "tasks": [
     {
-      "id": "dadd",
-      "text": "are you adding now",
-      "dueDate": "2025-05-20",
-      "dueTime": "11:37",
-      "reminder": false,
-      "priority": "High",
-      "completed": false
-    },
-    {
       "id": "5728",
       "text": "HALLELUJAH",
       "dueDate": "2025-06-06",
@@ -46,16 +37,6 @@
       "completed": false
     },
     {
-      "id": "560d",
-      "text": "is sorting add task working",
-      "dueDate": "2025-05-16",
-      "dueTime": "12:12",
-      "reminder": false,
-      "priority": "High",
-      "completed": false,
-      "dateAdded": "2025-05-20T16:12:42.954Z"
-    },
-    {
       "id": "32402",
       "text": "shettttt love it",
       "dueDate": "2025-05-20",
@@ -65,14 +46,14 @@
       "completed": false
     },
     {
-      "id": "7f44",
-      "text": "to be deleted",
-      "dueDate": "2025-06-06",
-      "dueTime": "12:16",
+      "id": "dadd",
+      "text": "are you adding now FR",
+      "dueDate": "2025-05-20",
+      "dueTime": "11:37",
       "reminder": false,
       "priority": "High",
       "completed": false,
-      "dateAdded": "2025-05-20T16:16:33.703Z"
+      "dateAdded": "2025-05-20T23:18:28.026Z"
     }
   ]
 }
