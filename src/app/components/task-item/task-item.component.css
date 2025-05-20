@@ -1,82 +1,102 @@
 /* src/app/components/task-item/task-item.component.css */
-.task {
-  background: #f4f4f4;
-  margin: 5px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border-left: 5px solid #ccc;
+
+.task-item {
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(255,182,193,0.10);
+  margin-bottom: 1.5rem;
+  padding: 1.2rem 1.2rem 1rem 1.2rem;
   display: flex;
+  align-items: center; /* Center vertically */
   justify-content: space-between;
-  align-items: center;
+  transition: box-shadow 0.2s;
+  gap: 1.2rem;
 }
 
 .task-content {
   flex: 1;
+  min-width: 0;
 }
 
 .task-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between; /* Push actions to the right */
+  gap: 1rem;
 }
 
-.task-details {
+.task-title-group {
   display: flex;
-  gap: 10px;
-  font-size: 0.9em;
-  color: #555;
+  align-items: center;
+  gap: 0.7rem; /* Adjust for desired space between checkbox and text */
 }
 
-.priority-High {
-  background-color: #d4f8e8;
-  border-left: 5px solid #2ecc40; /* green */
-}
-
-.priority-Mid {
-  background-color: #f0f0f0;
-  border-left: 5px solid #888888; /* gray */
-}
-
-.priority-Low {
-  background-color: #ffeaea;
-  border-left: 5px solid #ff4136; /* red */
-}
-
-.task.reminder {
-  border-left: 5px solid #00cc66;
-}
-
-.task.completed {
-  background: #e8e8e8;
-  opacity: 0.7;
+input[type="checkbox"] {
+  width: 1.2em;
+  height: 1.2em;
+  accent-color: var(--accent-pink); /* For a cute pink checkbox if supported */
+  margin: 0;
+  vertical-align: middle;
 }
 
 .completed-text {
   text-decoration: line-through;
-  color: gray;
+  color: #b0a6ab;
 }
 
-.reminder-badge {
-  background: #00cc66;
-  color: white;
-  border-radius: 10px;
-  padding: 2px 6px;
-  font-size: 0.8em;
+.task-details {
+  font-size: 0.95rem;
+  color: #a58d7f;
+  margin-top: 0.3rem;
 }
 
-.delete-btn, .edit-btn {
-  color: white;
+.task-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn {
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  font-family: var(--kawaii-font);
+  font-weight: 600;
   cursor: pointer;
-  padding: 5px 8px;
-  margin-left: 5px;
-}
-
-.delete-btn {
-  background: #e74c3c;
+  transition: background 0.2s;
 }
 
 .edit-btn {
-  background: #3498db;
+  background: #6ec1e4;
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background: #4fa3d1;
+}
+
+.delete-btn {
+  background: #ff8fa3;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background: #ff5c7a;
+}
+
+.priority-high {
+  border-left: 8px solid #ff5c5c;      /* bright red */
+  background: #fff0f0;                 /* very light red */
+}
+
+.priority-mid {
+  border-left: 8px solid #ffd966;      /* yellow/orange */
+  background: #fffbe6;                 /* very light yellow */
+}
+
+.priority-low {
+  border-left: 8px solid #8fd19e;      /* soft green */
+  background: #f6fff6;                 /* very light green */
 }

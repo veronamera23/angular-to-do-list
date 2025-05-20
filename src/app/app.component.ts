@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from './components/header/header.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -7,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
   standalone: true,
   imports: [
     HttpClientModule,
+    HeaderComponent,
     TasksComponent
   ],
   templateUrl: './app.component.html',
